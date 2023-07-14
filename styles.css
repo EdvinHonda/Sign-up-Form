@@ -1,0 +1,130 @@
+body{
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    width: auto;
+    min-height: 100vh;
+}
+
+.left-side { 
+    position: relative;
+    display: flex;
+    width: 40vw;
+    background: url(./images/nathan-dumlao-c2Y16tC3yO8-unsplash.jpg);
+    background-size: cover;
+    justify-content: center;
+    color: white;
+}
+
+.left-side .title {
+    width: 40vw;    
+    display: flex;
+    position: fixed;
+    top: 17rem;
+    gap: 0.5vw;
+    justify-content: center;
+    background-color: rgba(255,255,255,0.2);
+}
+
+.left-side .title img {
+    width: 5rem;
+    filter: invert(100%);
+}
+
+.left-side .title p {
+    text-transform: uppercase;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.left-side .link-author{
+    position: absolute;
+    bottom: 0;
+   text-align: center;
+}
+
+.left-side .link-author a {
+    color: white;
+}
+
+.right-side {
+    width: 60vw;
+    background-color: rgb(240, 240, 240);
+}
+
+.text-sign-up, .form-sign-up, .submit-section {
+    padding: 4rem 4rem;
+}
+
+.text-sign-up {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.form-sign-up {
+    background-color: white;
+}
+
+.form-sign-up p {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.form-sign-up .row {
+    display: flex;
+    margin-top: 1rem;
+}
+
+.form-sign-up .row .col {
+    display: grid;
+    padding-right: 5rem;
+}
+
+.form-sign-up label {
+    text-transform: uppercase;
+    font-size: 15px;
+}
+
+.form-sign-up input {
+    margin-top: 2px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 15px;
+    border-radius: 5px;
+    border: 2px solid rgb(240, 240, 240);
+}
+
+.form-sign-up input:focus {
+    outline: none;
+}
+
+.form-sign-up input:focus:valid {
+    border-color: green;
+}
+
+.form-sign-up input:focus:invalid {
+    border-color: red;
+}
+
+.form-sign-up .password-error {
+    color: red;
+    position: absolute;
+    margin-top:3rem;
+}
+
+.submit-section button{
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 0.7rem 3.5rem;
+    margin-bottom: 1.5rem;
+    background-color: #596D48;
+    color: rgb(240, 240, 240);
+}
+
+.submit-section a {
+    text-decoration: none;
+    color: #596D48;
+    font-weight: bold;
+}
