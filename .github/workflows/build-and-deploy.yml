@@ -1,0 +1,45 @@
+name: Build and Deploy web
+run-name: Build and deploy
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: build
+        run: echo 'building'
+  deploy:
+    environment: 
+      name: github-pages
+      url: ${{ steps.deployment.outputs.url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Get the latest tag
+        id: get_latest_tag
+        run: |
+          tag=$(git describe --tags --abbrev=0)
+          echo "$tag"
+      - name: Calculating the new tag
+        id: calculate_new_tag
+        run: |
+          latest_tag="${{ steps.get_latest_tag.outputs.tag }}"
+          latest_version="${latest_tag#v}" 
+          new_version="v1.$((latest_version + 1))"
+      - name: Create a new tag 
+        id: create_tag
+        run: |
+          git tag -a "${{ steps.calculate_new_tag.outputs.new_version }}" -m "New release ${{ steps.calculate_new_tag.outputs.new_version }}"
+          echo "tag created"
+      - name: Push new tag 
+        run: |
+          git push origin ${{ steps.create_tag.outputs.tag }}
+          echo "New tag pushed"
+      - name: Deploy to github pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+  
