@@ -24,7 +24,7 @@ jobs:
       - name: Get the latest tag
         id: get_latest_tag
         run: |
-          tag=$(git describe --tags --abbrev=0)
+          tag="$(git describe --tags --abbrev=0)"
           echo "$tag"
       - name: Calculating the new tag
         id: calculate_new_tag
