@@ -20,7 +20,7 @@ body{
 .left-side .title {
     width: 40vw;    
     display: flex;
-    position: fixed;
+    position: absolute;
     top: 17rem;
     gap: 0.5vw;
     justify-content: center;
