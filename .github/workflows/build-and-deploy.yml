@@ -21,25 +21,23 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Get the latest tag
-        id: get_latest_tag
-        run: |
-          tag="$(git describe --abbrev=0 --tags)"
-          echo "$tag"
-      - name: Calculating the new tag
-        id: calculate_new_tag
-        run: |
-          latest_tag="${{ steps.get_latest_tag.outputs.tag }}"
-          latest_version="${latest_tag#v}" 
-          new_version="v1.$((latest_version + 1))"
       - name: Create a new tag 
         id: create_tag
         run: |
-          git tag -a "${{ steps.calculate_new_tag.outputs.new_version }}" -m "New release ${{ steps.calculate_new_tag.outputs.new_version }}"
-          echo "tag created"
+          VERSION_PREFIX="v"
+          VERSION_MAJOR_MINOR="1.0"
+          VERSION_PATCH=$(git tag --list "${VERSION_PREFIX}${VERSION_MAJOR_MINOR}.*" --sort=-version:refname | head -n 1 | grep -oE '[0-9]+$')
+          if [ -z "$VERSION_PATCH" ]; then
+            VERSION_PATCH=0
+          else
+            VERSION_PATCH=$((VERSION_PATCH + 1))
+          fi
+          NEW_TAG="${VERSION_PREFIX}${VERSION_MAJOR_MINOR}.${VERSION_PATCH}"
+          echo "Generated new tag: $NEW_TAG"
+          echo "NEW_TAG=$NEW_TAG" >> $GITHUB_ENV
       - name: Push new tag 
         run: |
-          git push origin ${{ steps.create_tag.outputs.tag }}
+          git push origin ${{ steps.create_tag.outputs.NEW_TAG }}
           echo "New tag pushed"
       - name: Deploy to github pages
         id: deployment
